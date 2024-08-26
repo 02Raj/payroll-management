@@ -1,0 +1,41 @@
+<div class="bg-gray-100 p-4 mt-16">
+  <!-- Header with Title and Dropdown -->
+  <div class="flex justify-between items-center bg-white p-4 shadow rounded-lg">
+    <!-- Left: Title -->
+    <h1 class="text-2xl font-semibold">Dashboard</h1>
+
+    <!-- Right: Select Company Dropdown -->
+    <div>
+      <select class="border border-gray-300 text-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+        <option>Select Company</option>
+        <option>Company 1</option>
+        <option>Company 2</option>
+        <option>Company 3</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Dashboard Content -->
+  <div class="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div class="dashboard-card group" routerLink="/employee">
+      <i class="fas fa-users text-6xl text-blue-600 mb-4 group-hover:text-white"></i>
+      <span class="text-xl font-semibold group-hover:text-white">People</span>
+    </div>
+    <div class="dashboard-card group" routerLink="/company">
+      <i class="fas fa-building text-6xl text-blue-600 mb-4 group-hover:text-white"></i>
+      <span class="text-xl font-semibold group-hover:text-white">Company</span>
+    </div>
+    <div class="dashboard-card group" routerLink="/payroll">
+      <i class="fas fa-dollar-sign text-6xl text-blue-600 mb-4 group-hover:text-white"></i>
+      <span class="text-xl font-semibold group-hover:text-white">Payroll</span>
+    </div>
+    <div class="dashboard-card group" routerLink="/report">
+      <i class="fas fa-chart-bar text-6xl text-blue-600 mb-4 group-hover:text-white"></i>
+      <span class="text-xl font-semibold group-hover:text-white">Reports</span>
+    </div>
+    <div class="dashboard-card group" routerLink="/maintenance">
+      <i class="fas fa-tools text-6xl text-blue-600 mb-4 group-hover:text-white"></i>
+      <span class="text-xl font-semibold group-hover:text-white">Maintenance</span>
+    </div>
+  </div>
+</div>

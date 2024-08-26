@@ -1,0 +1,78 @@
+<div class="bg-gray-100 p-4 mt-16">
+    <!-- Header Section -->
+    <div class="flex justify-between items-center bg-white p-6 shadow rounded-lg mb-6" >
+        <h1 class="text-2xl font-semibold text-gray-700">Companies</h1>
+        <button (click)="openAddCompanyModal()" class="bg-blue-500 text-white px-5 py-2 rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            + Add Company
+        </button>
+    </div>
+
+    <!-- Search Input -->
+    <div class="bg-white p-4 shadow rounded-lg mb-6 flex items-center space-x-4">
+        <input type="text" placeholder="Search companies..." class="border border-gray-300 rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <button class="bg-blue-500 text-white px-5 py-2 rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            Search
+        </button>
+    </div>
+
+    <!-- Table Section -->
+    <div class="bg-white shadow rounded-lg overflow-x-auto">
+        <table class="min-w-full text-left table-auto">
+            <thead class="bg-blue-50 text-blue-600 uppercase text-sm leading-normal">
+                <tr>
+                    <th class="py-3 px-6">Name</th>
+                    <th class="py-3 px-6">Address1</th>
+                    <th class="py-3 px-6">Address2</th>
+                    <th class="py-3 px-6">City</th>
+                    <th class="py-3 px-6">State</th>
+                    <th class="py-3 px-6">ZipCode</th>
+                    <th class="py-3 px-6">Action</th>
+                </tr>
+            </thead>
+            <tbody class="text-gray-700 text-sm">
+                <tr *ngFor="let company of companies" class="border-b hover:bg-blue-50">
+                    <td class="py-3 px-6 font-semibold">{{ company.companyName }}</td>
+                    <td class="py-3 px-6">{{ company.address?.line1 }}</td>
+                    <td class="py-3 px-6">{{ company.address?.line2 }}</td>
+                    <td class="py-3 px-6">{{ company.address?.city }}</td>
+                    <td class="py-3 px-6">{{ company.address?.state }}</td>
+                    <td class="py-3 px-6">{{ company.address?.zipCode }}</td>
+                    <td class="py-3 px-6">
+                        <svg (click)="updateCompany(company.companyId)" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-blue-500 cursor-pointer hover:text-blue-700">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M11 17h2m-1-2V7m-1 10a4 4 0 100-8 4 4 0 000 8z" />
+                        </svg>
+                      </td>
+                </tr>
+                <tr *ngIf="companies.length === 0" class="border-b hover:bg-gray-50">
+                    <td colspan="7" class="text-center py-4 text-gray-500">No records found</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination Section -->
+    <div class="flex justify-between items-center p-4 bg-gray-100 mt-6">
+        <span class="text-sm text-gray-600">
+          {{ currentPage * pageSize + 1 }}-{{ (currentPage + 1) * pageSize > totalItems ? totalItems : (currentPage + 1) * pageSize }} of {{ totalItems }}
+        </span>
+        <div class="flex items-center space-x-4">
+          <label for="pageSize" class="text-sm text-gray-600">Items per page:</label>
+          <select id="pageSize" [(ngModel)]="pageSize" (change)="onPageSizeChange($event)" class="border border-gray-300 text-gray-700 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <option [value]="5">5</option>
+            <option [value]="10">10</option>
+            <option [value]="20">20</option>
+            <option [value]="30">30</option>
+          </select>
+      
+          <button (click)="goToPreviousPage()" [disabled]="currentPage === 0" class="px-4 py-2 text-sm bg-gray-300 rounded-lg hover:bg-gray-400 disabled:opacity-50">Previous</button>
+          <button (click)="goToNextPage()" [disabled]="currentPage >= totalPages - 1" class="px-4 py-2 text-sm bg-gray-300 rounded-lg hover:bg-gray-400 disabled:opacity-50">Next</button>
+        </div>
+      </div>
+      
+    <app-shared-ui 
+    [loading]="isLoading" 
+    [successMessage]="successMessage" 
+    [errorMessage]="errorMessage">
+  </app-shared-ui>
+    <app-add-company-modal #addCompanyModal></app-add-company-modal>
+</div>

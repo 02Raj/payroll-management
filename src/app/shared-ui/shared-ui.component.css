@@ -1,0 +1,17 @@
+/* shared-ui.component.css */
+.custom-loader {
+    border: 8px solid rgba(255, 255, 255, 0.2); /* Light color for the background circle */
+    border-top: 8px solid #007bff; /* Blue color for the arc */
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+
+  

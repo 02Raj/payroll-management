@@ -1,0 +1,9 @@
+<div class="flex">
+ 
+  <app-sidebar *ngIf="router.url !== '/' && router.url !== '/login'"></app-sidebar>
+
+
+  <div [ngClass]="router.url !== '/' && router.url !== '/login' ? 'ml-64' : ''" class="p-4 w-full">
+    <router-outlet></router-outlet>
+  </div>
+</div>

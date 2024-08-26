@@ -1,0 +1,113 @@
+<div class="bg-gray-100 p-4 mt-16" >
+    <!-- Header Section -->
+    <div class="flex justify-between items-center bg-white p-4 shadow rounded-lg mb-4">
+        <h1 class="text-2xl font-semibold">Reports</h1>
+        <div>
+            <select class="border border-gray-300 text-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <option>Select Company</option>
+                <option>Company 1</option>
+                <option>Company 2</option>
+                <option>Company 3</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="bg-white p-4 shadow rounded-lg mb-4">
+        <div class="flex flex-wrap space-y-4 md:space-y-0 md:space-x-4">
+            <!-- Beginning/Ending Date -->
+            <div class="flex-1">
+                <label class="block text-gray-700">Beginning/Ending Date</label>
+                <input ngxDaterangepickerMd
+                       [(ngModel)]="selectedDate"
+                       class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                       placeholder="Select Date Range"
+                       [locale]="{ format: 'MM/DD/YYYY' }"
+                       [ranges]="ranges"
+                       [showCustomRangeLabel]="true"
+                       [alwaysShowCalendars]="true">
+            </div>
+            
+            <!-- Quarter -->
+            <div class="flex-1">
+                <label class="block text-gray-700">Quarter</label>
+                <select class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <option>Select Quarter</option>
+                    <option>Q1</option>
+                    <option>Q2</option>
+                    <option>Q3</option>
+                    <option>Q4</option>
+                </select>
+            </div>
+            
+            <!-- Year -->
+            <div class="flex-1">
+                <label class="block text-gray-700">Year</label>
+                <input type="text" placeholder="2024" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            </div>
+
+            <!-- Employee -->
+            <div class="flex-1">
+                <label class="block text-gray-700">Employee</label>
+                <input type="text" placeholder="Employee" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            </div>
+        </div>
+
+        <!-- Pay Date and Clear Button -->
+        <div class="flex flex-wrap items-center mt-4">
+            <!-- Pay Date -->
+            <div class="flex-1 md:flex-none md:w-auto">
+                <label class="block text-gray-700">Pay Date</label>
+                <input ngxDaterangepickerMd
+                       [(ngModel)]="selectedPayDate"
+                       class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                       placeholder="Select Pay Date"
+                       [locale]="{ format: 'MM/DD/YYYY' }"
+                       [ranges]="ranges"
+                       [singleDatePicker]="true">
+            </div>
+            
+            <!-- Clear Button -->
+            <div class="ml-4">
+                <button class="bg-red-500 text-white rounded-lg px-4 py-2 mt-7 md:mt-0" style="margin-top: 32%;">Clear</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Report Sections -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Employee Report -->
+        <div class="bg-white p-4 shadow rounded-lg">
+            <h2 class="text-center text-lg font-semibold text-blue-900">Employee Report</h2>
+            <ul class="mt-4 space-y-2">
+                <li class="text-center text-blue-900 cursor-pointer hover:underline">Paystub</li>
+                <li class="text-center text-blue-900 cursor-pointer hover:underline">Employee Earnings</li>
+                <li class="text-center text-blue-900 cursor-pointer hover:underline">Employee Details</li>
+            </ul>
+        </div>
+
+        <!-- Quarterly/Annual Report -->
+        <div class="bg-white p-4 shadow rounded-lg">
+            <h2 class="text-center text-lg font-semibold text-blue-900">Quarterly/Annual Report</h2>
+            <ul class="mt-4 space-y-2">
+                <li class="text-center text-blue-900 cursor-pointer hover:underline">Form W2</li>
+                <li class="text-center text-blue-900 cursor-pointer hover:underline">Form W3</li>
+                <li class="text-center text-blue-900 cursor-pointer hover:underline">1099 NEC</li>
+                <li class="text-center text-blue-900 cursor-pointer hover:underline">Form 940</li>
+                <li class="text-center text-blue-900 cursor-pointer hover:underline">Form 941</li>
+                <li class="text-center text-blue-900 cursor-pointer hover:underline">Form 944</li>
+                <li class="text-center text-blue-900 cursor-pointer hover:underline">State Taxes</li>
+            </ul>
+        </div>
+
+        <!-- Other Report -->
+        <div class="bg-white p-4 shadow rounded-lg">
+            <h2 class="text-center text-lg font-semibold text-blue-900">Other Report</h2>
+            <ul class="mt-4 space-y-2">
+                <li class="text-center text-blue-900 cursor-pointer hover:underline">Deductions</li>
+                <li class="text-center text-blue-900 cursor-pointer hover:underline">Worker Compensation</li>
+                <li class="text-center text-blue-900 cursor-pointer hover:underline">Taxable Wages</li>
+            </ul>
+        </div>
+    </div>
+</div>

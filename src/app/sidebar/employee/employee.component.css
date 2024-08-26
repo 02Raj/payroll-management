@@ -1,0 +1,36 @@
+.div-table {
+    height: 540px; 
+    overflow: auto;
+    width: 100%;
+    max-width: 1104px; /* Ensures table scales down on smaller screens */
+    border-radius: 7px;
+    border: 1px solid rgba(0, 0, 0, 0.082);
+    overflow-x: auto;
+}
+
+/* Custom Scrollbar for WebKit browsers */
+.div-table::-webkit-scrollbar {
+    width: 10px;
+    height: 7px;
+}
+
+.div-table::-webkit-scrollbar-thumb {
+    background-color: #1e88e5d8;
+    border-radius: 10px;
+}
+
+.div-table::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+/* Ensure table content is wrapped properly */
+.custom-table th, .custom-table td {
+    word-wrap: break-word;
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+@media screen and (max-width: 768px) {
+    .div-table {
+        max-width: 100%; /* Ensure table adapts to smaller screens */
+    }
+}

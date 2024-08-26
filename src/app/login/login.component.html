@@ -1,0 +1,48 @@
+<section class="bg-cover bg-center fixed inset-0" style="background-image: url('https://res.cloudinary.com/dblv3wyop/image/upload/v1724300621/login-image-BFfzH0H8_v3n11i.png');">
+  <!-- Soft overlay -->
+  <div class="fixed inset-0 bg-black bg-opacity-40"></div>
+  <div class="flex flex-col items-center justify-center fixed inset-0 px-6 py-8 mx-auto z-10">
+    <!-- Optional logo for branding -->
+    <!-- <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-white">
+      <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo">
+      RR Payroll
+    </a> -->
+    <div class="w-full bg-white bg-opacity-100 rounded-lg shadow-lg dark:border sm:max-w-md xl:p-0 dark:bg-gray-800 dark:bg-opacity-90 dark:border-gray-700">
+      <div class="p-8 space-y-6">
+        <h1 class="text-2xl font-bold text-center text-gray-900 dark:text-white" style="font-family: 'Poppins', sans-serif;">
+          Welcome to RR Payroll Management System
+        </h1>
+        
+        <form class="space-y-6" (ngSubmit)="onSubmit()">
+          <div>
+            <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+            <input [(ngModel)]="username" name="username" id="username" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your username" required>
+          </div>
+          <div>
+            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+            <input [(ngModel)]="password" name="password" id="password" type="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="flex items-start">
+              <div class="flex items-center h-5">
+                <input id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">
+              </div>
+              <div class="ml-3 text-sm">
+                <label for="remember" class="text-gray-500 dark:text-gray-300">Remember me</label>
+              </div>
+            </div>
+            <a href="#" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">Forgot password?</a>
+          </div>
+          <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition duration-150 ease-in-out">
+            Sign in
+          </button>
+          <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+            Don’t have an account yet? <a href="#" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Sign up</a>
+          </p>
+        </form>
+          
+      </div>
+    </div>
+  </div>
+</section>
+<app-shared-ui [loading]="isLoading" [successMessage]="successMessage" [errorMessage]="errorMessage"></app-shared-ui>
