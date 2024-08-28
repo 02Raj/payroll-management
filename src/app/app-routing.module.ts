@@ -16,29 +16,29 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { CreateCompanyComponent } from './create-company/create-company.component';
 import { EditCompanyComponent } from './edit-company/edit-company.component';
 import { HrCompilanceComponent } from './hr-compilance/hr-compilance.component';
+import { authGuard } from './auth.guard';
 
 const routes: Routes = [
-  { path: 'dashboard', component: DashbaordComponent },
-  { path: 'sidebar', component: SidebarComponent },
-  { path: 'payroll', component: PayrollComponent },
-  { path: 'create-payroll', component: CreatePayrollComponent },
-  { path: 'report', component: ReportComponent },
-  { path: 'employee', component: EmployeeComponent },
-  { path: 'create-employee', component: CreateEmployeeComponent },
-  { path: 'company', component: CompanyComponent },
-  { path: 'user', component: UserComponent },
-  { path: 'create-user', component: CreateUserComponent },
-  { path: 'create-user/:userId', component: CreateUserComponent },
-  { path: 'user-profile', component: UserProfileComponent },
-  { path: 'change-password', component: ChangePasswordComponent },
-  { path: 'edit-company/:id', component: EditCompanyComponent },
-  { path: 'edit-company', component: EditCompanyComponent },
-  { path: 'hr-compliance', component: HrCompilanceComponent },
-  { path: 'login', component: LoginComponent }, 
+  { path: 'dashboard', component: DashbaordComponent, canActivate: [authGuard] },
+  { path: 'sidebar', component: SidebarComponent, canActivate: [authGuard] },
+  { path: 'payroll', component: PayrollComponent, canActivate: [authGuard] },
+  { path: 'create-payroll', component: CreatePayrollComponent, canActivate: [authGuard] },
+  { path: 'report', component: ReportComponent, canActivate: [authGuard] },
+  { path: 'employee', component: EmployeeComponent, canActivate: [authGuard] },
+  { path: 'create-employee', component: CreateEmployeeComponent, canActivate: [authGuard] },
+  { path: 'company', component: CompanyComponent, canActivate: [authGuard] },
+  { path: 'user', component: UserComponent, canActivate: [authGuard] },
+  { path: 'create-user', component: CreateUserComponent, canActivate: [authGuard] },
+  { path: 'create-user/:userId', component: CreateUserComponent, canActivate: [authGuard] },
+  { path: 'user-profile', component: UserProfileComponent, canActivate: [authGuard] },
+  { path: 'change-password', component: ChangePasswordComponent, canActivate: [authGuard] },
+  { path: 'edit-company/:id', component: EditCompanyComponent, canActivate: [authGuard] },
+  { path: 'edit-company', component: EditCompanyComponent, canActivate: [authGuard] },
+  { path: 'hr-compliance', component: HrCompilanceComponent, canActivate: [authGuard] },
+  { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' }, 
-  { path: '**', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login', pathMatch: 'full' }, 
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
