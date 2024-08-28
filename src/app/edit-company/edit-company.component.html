@@ -1,6 +1,6 @@
 <div class="bg-gray-100 p-4 mt-16">
     <!-- Header Section -->
-    <div class="flex justify-between items-center bg-white p-4 shadow rounded-lg mb-4 mt-4" >
+    <div class="flex justify-between items-center bg-white p-4 shadow rounded-lg mb-4 mt-4">
         <h2 class="text-2xl font-semibold text-gray-800">Company Detail</h2>
         <div>
             <button (click)="saveCompany()" class="bg-green-500 text-white px-4 py-2 rounded-lg shadow hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors duration-200">Update</button>
@@ -123,5 +123,7 @@
             </div>
         </div>
     </form>
+
+
     <app-shared-ui [loading]="isLoading" [successMessage]="successMessage" [errorMessage]="errorMessage"></app-shared-ui>
 </div>

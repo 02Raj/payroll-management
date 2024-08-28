@@ -9,7 +9,7 @@ import { CompanyService } from '../services/company.service';
   styleUrls: ['./edit-company.component.css']
 })
 export class EditCompanyComponent {
-// UI State
+
 isLoading: boolean = false;
 successMessage: { summary: string, detail: string } | null = null;
 errorMessage: { summary: string, detail: string } | null = null;
@@ -23,7 +23,7 @@ constructor(
   private router: Router,
   private companyService: CompanyService
 ) {
-  // Initialize the form with the required fields
+ 
   this.companyForm = this.fb.group({
     companyName: ['', Validators.required],
     address1: [''],
@@ -62,13 +62,13 @@ constructor(
      
         this.loadCompanyData(this.companyId as string); 
     } else if (storedRoleName === 'companyAdmin' && storedCompanyId) {
-        // Scenario 1: URL does not contain a companyId, use companyId from local storage
+     
         this.companyId = storedCompanyId;
-        this.loadCompanyData(this.companyId as string);  // Using companyId from local storage
+        this.loadCompanyData(this.companyId as string);  
     } else {
         console.error('Company ID is not available from URL or local storage');
-        // Optionally, redirect the user or show an error message
-        this.router.navigate(['/company']);  // Redirect to a different page
+   
+        this.router.navigate(['/company']);  
     }
 }
 
@@ -77,7 +77,7 @@ constructor(
 loadCompanyData(companyId: string): void {
   this.companyService.getCompanyById(companyId).subscribe(
     (response: { message: string; companyDetails: any }) => {
-      this.isLoading = false; // Hide spinner after data is loaded
+      this.isLoading = false; 
       const company = response.companyDetails;
 
       if (company) {
@@ -115,18 +115,18 @@ loadCompanyData(companyId: string): void {
 }
 saveCompany(): void {
   if (this.companyForm.valid && this.companyId) {
-    this.isLoading = true;  // Show loading spinner
+    this.isLoading = true; 
     this.companyService.updateCompany(this.companyId, this.companyForm.value).subscribe(
       (response: any) => {
-        console.log("msg", response.message);
+      //  console.log("msg", response.message);
         this.successMessage = { summary: 'Success', detail: response.message || 'Company updated successfully.' };
 
-        // Stop the loading spinner
+     
         this.isLoading = false;
 
-        // Delay navigation to allow the success message to be displayed
+       
         setTimeout(() => {
-          // Handle navigation based on user role
+       
           const user = JSON.parse(localStorage.getItem('userInfo') || '{}');
           const storedRoleName = user.roleName;
 
@@ -137,7 +137,7 @@ saveCompany(): void {
           } else {
             this.router.navigate(['/login']);
           }
-        }, 3000);  // Delay for 3 seconds to match the toast message duration
+        }, 3000); 
       },
       (error: any) => {
         this.isLoading = false;

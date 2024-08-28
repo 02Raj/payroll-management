@@ -11,14 +11,19 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserComponent {
   users: any[] = [];
+  filteredUsers: any[] = [];
   companies: any[] = [];
   selectedCompanyId: string | null = null; 
   currentPage: number = 0;
-  pageSize: number = 10;
+  pageSize: number = 50;
   totalItems: number = 0;
   totalPages: number = 1;
-  userRole: string = '';  // To store the role of the user
+  userRole: string = ''; 
+  searchTerm: string = '';
 
+ isLoading: boolean = false;
+ successMessage: { summary: string, detail: string } | null = null;
+ errorMessage: { summary: string, detail: string } | null = null;
   constructor(
     private companyService: CompanyService, 
     private userService: UserService,
@@ -27,15 +32,15 @@ export class UserComponent {
 
   ngOnInit(): void {
     this.getUserRole();
-    this.fetchCompanies();
+    this.allCompanies();
   }
 
   getUserRole(): void {
     const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
-    this.userRole = userInfo.roleName || '';  // Assuming 'roleName' is the key
+    this.userRole = userInfo.roleName || ''; 
   }
 
-  fetchCompanies(): void {
+  allCompanies(): void {
     this.companyService.getAllCompanies(this.currentPage, this.pageSize).subscribe(
       (response: { results: any[]; pagination: { currentPage: number; pageSize: number; totalItems: number; totalPages: number; }; }) => {
         this.companies = response.results;
@@ -49,7 +54,7 @@ export class UserComponent {
         }
       },
       (error: any) => {
-        console.error('Error fetching companies:', error);
+        console.error('Error ', error);
       }
     );
   }
@@ -67,16 +72,15 @@ export class UserComponent {
 
   loadUsers(): void {
     if (this.selectedCompanyId) {
-      this.userService.searchUsers('', this.selectedCompanyId, this.pageSize, this.currentPage, 'firstName', 'asc').subscribe(
-        (response: any) => {
-          console.log('API Response:', response);
-  
-        
+      this.isLoading = true; // Start loading
+      this.userService.searchUsers(this.searchTerm, this.selectedCompanyId, this.pageSize, this.currentPage, 'firstName', 'asc').subscribe(
+        (response) => {
           this.users = Array.isArray(response.result) ? response.result.filter(
             (user: { companyId: string | null; }) => user.companyId === this.selectedCompanyId
           ) : [];
-  
-          
+
+          this.filteredUsers = this.users;
+
           if (response.pagination) {
             this.totalItems = response.pagination.totalItems || 0;
             this.totalPages = Math.ceil(this.totalItems / this.pageSize);
@@ -85,10 +89,15 @@ export class UserComponent {
             this.totalPages = 1;
             console.warn('Pagination information is missing from the API response.');
           }
-  
-          console.log('Users loaded:', this.users);
+
+          this.isLoading = false; 
         },
-        (error: any) => {
+        (error) => {
+          this.isLoading = false; 
+          this.errorMessage = {
+            summary: 'Error loading users',
+            detail: error.message || 'An unexpected error occurred.'
+          };
           console.error('Error loading users:', error);
         }
       );
@@ -96,7 +105,17 @@ export class UserComponent {
       console.warn('No company ID found.');
     }
   }
-  
+
+
+  filterUsers(): void {
+    this.filteredUsers = this.users.filter(user => 
+      user.firstName.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      user.lastName.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      user.userName.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      user.company.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
 
   goToPreviousPage(): void {
     if (this.currentPage > 0) {
@@ -115,4 +134,11 @@ export class UserComponent {
   editUser(userId: string): void {
     this.router.navigate(['/create-user', userId]);
   }
+
+  onItemsPerPageChange(event: Event): void {
+    this.pageSize = parseInt((event.target as HTMLSelectElement).value, 10);
+    this.currentPage = 0; 
+    this.allCompanies();
+  }
 }
+

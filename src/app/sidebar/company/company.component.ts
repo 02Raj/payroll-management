@@ -11,41 +11,42 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CompanyComponent {
   @ViewChild('addCompanyModal') addCompanyModal!: AddCompanyModalComponent;
   companies: any[] = [];
+  filteredCompanies: any[] = [];
+  searchTerm: string = ''; 
   currentPage: number = 0;
   pageSize: number = 10;
   totalItems: number = 0;
   totalPages: number = 1;
 
-   // UI State
-   isLoading: boolean = false;
-   successMessage: { summary: string, detail: string } | null = null;
-   errorMessage: { summary: string, detail: string } | null = null;
-  constructor(private companyService: CompanyService, private router: ActivatedRoute,private route:Router) { }
+
+  isLoading: boolean = false;
+  successMessage: { summary: string, detail: string } | null = null;
+  errorMessage: { summary: string, detail: string } | null = null;
+
+  constructor(private companyService: CompanyService, private router: ActivatedRoute, private route: Router) { }
 
   ngOnInit(): void {
-    this.fetchCompanies();
+    this.allCompanies();
   }
 
   ngAfterViewInit(): void {
-  
     if (!this.addCompanyModal) {
       console.error('The modal component is not initialized.');
     }
   }
 
-
-
-  fetchCompanies(): void {
+  allCompanies(): void {
     this.isLoading = true; 
     this.companyService.getAllCompanies(this.currentPage, this.pageSize).subscribe(
       (response) => {
         this.isLoading = false; 
         this.companies = response.results;
+        this.filteredCompanies = this.companies; 
         this.currentPage = response.pagination.currentPage;
         this.pageSize = response.pagination.pageSize;
         this.totalItems = response.pagination.totalItems;
         this.totalPages = response.pagination.totalPages;
-        console.log("this.companies", this.companies);
+      //  console.log("this.companies", this.companies);
 
         if (this.companies.length === 0) {
           this.successMessage = { summary: 'No Records', detail: 'No companies found.' };
@@ -59,17 +60,27 @@ export class CompanyComponent {
     );
   }
 
+  filterCompanies(): void {
+    this.filteredCompanies = this.companies.filter(company =>
+      company.companyName.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+
+    if (this.filteredCompanies.length === 0) {
+      this.successMessage = { summary: 'No Records', detail: 'No companies found matching your search.' };
+    }
+  }
+
   goToPreviousPage(): void {
     if (this.currentPage > 0) {
       this.currentPage--;
-      this.fetchCompanies();
+      this.allCompanies();
     }
   }
 
   goToNextPage(): void {
     if (this.currentPage < this.totalPages - 1) {
       this.currentPage++;
-      this.fetchCompanies();
+      this.allCompanies();
     }
   }
 
@@ -77,7 +88,7 @@ export class CompanyComponent {
     if (this.addCompanyModal) {
       this.addCompanyModal.openModal();
     } else {
-      console.error('addCompanyModal is not initialized');
+      console.error('addCompanyModal is not ');
     }
   }
 
@@ -85,16 +96,17 @@ export class CompanyComponent {
     if (this.addCompanyModal) {
       this.addCompanyModal.closeModal();
     } else {
-      console.error('addCompanyModal is not initialized');
+      console.error('addCompanyModal is not ');
     }
   }
 
   updateCompany(companyId: string): void {
     this.route.navigate(['/edit-company', companyId]);
   }
+
   onPageSizeChange(event: Event): void {
     this.pageSize = +(event.target as HTMLSelectElement).value;
-    this.currentPage = 0; // Reset to the first page
-    this.fetchCompanies(); // Re-fetch companies with the new page size
+    this.currentPage = 0; 
+    this.allCompanies();
   }
 }

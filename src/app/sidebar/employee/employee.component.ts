@@ -15,12 +15,12 @@ export class EmployeeComponent {
   selectedCompanyId: string | null = null; 
   superAdminCompanyId: string | null = null;  
   currentPage: number = 0;
-  pageSize: number = 10;
+  pageSize: number = 30;
   totalItems: number = 0;
   totalPages: number = 1;
   roleName: any;
 
-  // UI State
+
   isLoading: boolean = false;
   successMessage: { summary: string, detail: string } | null = null;
   errorMessage: { summary: string, detail: string } | null = null;
@@ -62,14 +62,14 @@ export class EmployeeComponent {
       (response) => {
         this.isLoading = false;
         const company = response.companyDetails;
-        console.log('Fetched company object:', company);
+      //  console.log('Fetched company object:', company);
         
         if (company.companyName) {
           this.companies = [company];
           this.selectedCompanyId = company.id; 
           localStorage.setItem('selectedCompanyId', company.id);
           localStorage.setItem('selectedCompanyName', company.companyName);
-          console.log('Company name:', company.companyName); 
+         // console.log('Company name:', company.companyName); 
         } else {
           this.errorMessage = { summary: 'Error', detail: 'Company name is not defined.' };
         }
@@ -78,7 +78,7 @@ export class EmployeeComponent {
       },
       (error: any) => {
         this.isLoading = false;
-        console.error('Error fetching company:', error);
+        console.error('Error :', error);
         this.errorMessage = { summary: 'Error', detail: 'Failed to fetch company details.' };
       }
     );
@@ -105,7 +105,7 @@ export class EmployeeComponent {
       },
       (error: any) => {
         this.isLoading = false;
-        console.error('Error fetching companies:', error);
+        console.error('Error ', error);
         this.errorMessage = { summary: 'Error', detail: 'Failed to fetch companies.' };
       }
     );
@@ -124,7 +124,9 @@ export class EmployeeComponent {
     if (selectedCompany) {
       localStorage.setItem('selectedCompanyId', selectedCompany.companyId);
       localStorage.setItem('selectedCompanyName', selectedCompany.companyName);
-      console.log('Selected company saved to localStorage:', {
+      console.log(' company saved  localStorageeee:'
+        , 
+        {
         companyId: selectedCompany.companyId,
         companyName: selectedCompany.companyName
       });
@@ -140,7 +142,7 @@ export class EmployeeComponent {
     const companyIdToUse = this.superAdminCompanyId || this.selectedCompanyId;
 
     if (companyIdToUse) {
-      console.log('Loading employees for companyId:', companyIdToUse);
+     // console.log('Loading employees for companyId:', companyIdToUse);
       this.isLoading = true;
 
       this.employeeService.getEmployeesByCompanyId(companyIdToUse).subscribe(
@@ -155,7 +157,7 @@ export class EmployeeComponent {
         },
         (error: any) => {
           this.isLoading = false;
-          console.error('Error loading employees:', error);
+          console.error('Error ', error);
           this.errorMessage = { summary: 'Error', detail: 'Failed to load employees.' };
         }
       );
@@ -182,7 +184,7 @@ export class EmployeeComponent {
     const companyIdToUse = this.superAdminCompanyId || this.selectedCompanyId;
 
     if (companyIdToUse) {
-      console.log('Navigating with employeeId:', employeeId, 'and companyId:', companyIdToUse);
+     // console.log('Navigating with employeeId:', employeeId, 'and companyId:', companyIdToUse);
       this.router.navigate(['/create-employee'], {
         queryParams: {
           id: employeeId,
@@ -197,7 +199,7 @@ export class EmployeeComponent {
 
   onPageSizeChange(event: Event): void {
     this.pageSize = +(event.target as HTMLSelectElement).value;
-    this.currentPage = 0; // Reset to first page when page size changes
+    this.currentPage = 0;
     this.loadEmployees();
   }
 

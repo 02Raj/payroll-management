@@ -12,12 +12,15 @@ export class ChangePasswordComponent {
   changePasswordForm: FormGroup;
   userId: string | null = '';
 
+  isLoading: boolean = false;
+  successMessage: { summary: string, detail: string } | null = null;
+  errorMessage: { summary: string, detail: string } | null = null;
+
   constructor(
     private fb: FormBuilder,
     private loginService: LoginService,
     private router: Router
   ) {
-    
     this.changePasswordForm = this.fb.group({
       currentPassword: ['', [Validators.required]],
       newPassword: ['', [Validators.required, Validators.minLength(6)]]
@@ -25,7 +28,6 @@ export class ChangePasswordComponent {
   }
 
   ngOnInit(): void {
-
     const userInfoString = localStorage.getItem('userInfo');
     if (userInfoString) {
       const userInfo = JSON.parse(userInfoString);
@@ -34,9 +36,6 @@ export class ChangePasswordComponent {
   }
 
   onSubmit(): void {
-    console.log('Form Valid:', this.changePasswordForm.valid);  // Temporary check
-    console.log('Form Values:', this.changePasswordForm.value); // Log form values
-  
     if (this.changePasswordForm.valid && this.userId) {
       const formValues = this.changePasswordForm.value;
       const payload = {
@@ -44,18 +43,23 @@ export class ChangePasswordComponent {
         currentPassword: formValues.currentPassword,
         newPassword: formValues.newPassword
       };
-  
+
+      this.isLoading = true;  
+      this.successMessage = null;
+      this.errorMessage = null;
+
       this.loginService.changePassword(payload).subscribe({
         next: () => {
-          alert('Password changed successfully!');
-          this.router.navigate(['/login']); 
+          this.isLoading = false; 
+          this.successMessage = { summary: 'Success', detail: 'Password changed successfully!' };
+          this.router.navigate(['/login']);
         },
         error: (error: any) => {
-          alert('Failed to change password. Please try again.');
-          console.error('Password change error:', error);
+          this.isLoading = false;  
+          this.errorMessage = { summary: 'Error', detail: 'Please try again.' };
+          console.error('Error:', error);
         }
       });
     }
   }
-  
 }

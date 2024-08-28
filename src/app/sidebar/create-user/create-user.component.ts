@@ -19,7 +19,7 @@ export class CreateUserComponent implements OnInit {
   userForm: FormGroup; 
   companies: any[] = []; 
   currentPage: number = 0;
-  pageSize: number = 10;
+  pageSize: number = 50;
   totalItems: number = 0;
   totalPages: number = 1;
 
@@ -47,7 +47,7 @@ export class CreateUserComponent implements OnInit {
     console.log('UserId from route:', this.userId);
 
     if (this.userId) {
-      // Editing existing user, so remove password validation
+    
       this.removePasswordValidation();
       this.loadUserData(this.userId);
     }
@@ -55,7 +55,7 @@ export class CreateUserComponent implements OnInit {
     this.fetchCompanies();
   }
 
-  // Function to remove password validation when editing a user
+
   removePasswordValidation(): void {
     this.userForm.get('password')?.clearValidators();
     this.userForm.get('password')?.updateValueAndValidity();

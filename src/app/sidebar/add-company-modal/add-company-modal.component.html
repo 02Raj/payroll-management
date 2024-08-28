@@ -1,43 +1,60 @@
-<!-- add-company-modal.component.html -->
-<div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" *ngIf="isVisible">
-    <div class="bg-white rounded-lg shadow-lg w-[40rem]"> <!-- Adjusted width -->
+<div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50" *ngIf="isVisible">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-[40rem] mx-4 md:mx-0"> <!-- Responsive width -->
         <div class="border-b px-4 py-2 flex justify-between items-center">
             <h3 class="text-xl font-semibold">Add Company</h3>
             <button (click)="closeModal()" class="text-gray-400 hover:text-gray-600">&times;</button>
         </div>
         <div class="p-4">
-            <form (ngSubmit)="onSubmit()">
-                <div class="grid grid-cols-2 gap-4">
+            <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4"> <!-- Responsive grid -->
                     <div>
                         <label class="block text-sm font-medium">Company Name</label>
-                        <input type="text" [(ngModel)]="companyName" name="companyName" class="border border-gray-300 rounded-lg px-3 py-2 mt-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                        <input type="text" formControlName="companyName" 
+                               class="border border-gray-300 rounded-lg px-3 py-2 mt-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                        <div *ngIf="companyForm.get('companyName')?.invalid && companyForm.get('companyName')?.touched" class="text-red-500 text-sm">
+                            Company name is required and should be at least 3 characters.
+                        </div>
                     </div>
                     <div>
                         <label class="block text-sm font-medium">User Name</label>
-                        <input type="text" [(ngModel)]="userName" name="userName" value="rahulSuperAdmin" class="border border-gray-300 rounded-lg px-3 py-2 mt-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                        <input type="text" formControlName="userName" 
+                               class="border border-gray-300 rounded-lg px-3 py-2 mt-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
                     </div>
                     <div>
                         <label class="block text-sm font-medium">First Name</label>
-                        <input type="text" [(ngModel)]="firstName" name="firstName" class="border border-gray-300 rounded-lg px-3 py-2 mt-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                        <input type="text" formControlName="firstName" 
+                               class="border border-gray-300 rounded-lg px-3 py-2 mt-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
                     </div>
                     <div>
                         <label class="block text-sm font-medium">Last Name</label>
-                        <input type="text" [(ngModel)]="lastName" name="lastName" class="border border-gray-300 rounded-lg px-3 py-2 mt-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                        <input type="text" formControlName="lastName" 
+                               class="border border-gray-300 rounded-lg px-3 py-2 mt-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
                     </div>
                     <div>
                         <label class="block text-sm font-medium">Email</label>
-                        <input type="email" [(ngModel)]="email" name="email" class="border border-gray-300 rounded-lg px-3 py-2 mt-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                        <input type="email" formControlName="email" 
+                               class="border border-gray-300 rounded-lg px-3 py-2 mt-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                        <div *ngIf="companyForm.get('email')?.invalid && companyForm.get('email')?.touched" class="text-red-500 text-sm">
+                            Please enter a valid email address.
+                        </div>
                     </div>
                     <div>
                         <label class="block text-sm font-medium">Password</label>
-                        <input type="password" [(ngModel)]="password" name="password" value="*****" class="border border-gray-300 rounded-lg px-3 py-2 mt-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                        <input type="password" formControlName="password" 
+                               class="border border-gray-300 rounded-lg px-3 py-2 mt-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                        <div *ngIf="companyForm.get('password')?.invalid && companyForm.get('password')?.touched" class="text-red-500 text-sm">
+                            Password is required and should be at least 6 characters.
+                        </div>
                     </div>
                 </div>
                 <div class="mt-6 flex justify-end space-x-4">
-                    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded shadow hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400">
+                    <button type="submit" 
+                            class="bg-green-500 text-white px-4 py-2 rounded shadow hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400" 
+                            [disabled]="companyForm.invalid">
                         Submit
                     </button>
-                    <button type="button" (click)="closeModal()" class="bg-red-500 text-white px-4 py-2 rounded shadow hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400">
+                    <button type="button" (click)="closeModal()" 
+                            class="bg-red-500 text-white px-4 py-2 rounded shadow hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400">
                         Close
                     </button>
                 </div>
@@ -45,3 +62,9 @@
         </div>
     </div>
 </div>
+
+<app-shared-ui 
+    [loading]="isLoading" 
+    [successMessage]="successMessage" 
+    [errorMessage]="errorMessage">
+</app-shared-ui>

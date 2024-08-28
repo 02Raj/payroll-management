@@ -1,232 +1,229 @@
 <div class="bg-gray-100 p-4 mt-16">
-    <!-- Form Wrapper -->
-    <form [formGroup]="employeeForm" class="space-y-4">
-      
+  <!-- Form Wrapper -->
+  <form [formGroup]="employeeForm" class="space-y-4">
+
       <!-- Header Section -->
-      <div class="flex justify-between items-center bg-white p-4 shadow rounded-lg mb-4 mt-4" >
-        <h1 class="text-2xl font-semibold text-gray-800">{{ employeeId ? 'Edit' : 'Add' }} Employee</h1>
-        <div class="flex space-x-2">
-          <button (click)="saveEmployee()" class="bg-green-500 text-white px-4 py-2 rounded shadow hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors duration-200">
-            Save
-          </button>
-          <button routerLink="/employee" class="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors duration-200">
-            Cancel
-          </button>
-        </div>
-        
- 
-        <div *ngIf="companies.length > 0">
-            <select id="company-select" formControlName="companyId"
-                    class="border border-gray-300 text-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors duration-200">
-                    <option value="">Select Company</option>
-              <option *ngFor="let company of companies"
-                      [value]="company.companyId"
-                      [selected]="roleName === 'companyAdmin' && company.companyId === selectedCompanyId">
-                {{ company.companyName }}
-              </option>
-            </select>
+      <div class="flex flex-col md:flex-row justify-between items-center bg-white p-4 shadow rounded-lg mb-4 mt-4 space-y-4 md:space-y-0">
+          <h1 class="text-2xl font-semibold text-gray-800">{{ employeeId ? 'Edit' : 'Add' }} Employee</h1>
+          <div class="flex space-x-2">
+              <button (click)="saveEmployee()" class="bg-green-500 text-white px-4 py-2 rounded shadow hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 transition-colors duration-200">
+                  Save
+              </button>
+              <button routerLink="/employee" class="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors duration-200">
+                  Cancel
+              </button>
           </div>
-          
-          
-          
+          <div *ngIf="companies.length > 0" class="w-full md:w-auto">
+              <select id="company-select" formControlName="companyId" class="w-full border border-gray-300 text-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors duration-200">
+                  <option value="">Select Company</option>
+                  <option *ngFor="let company of companies" [value]="company.companyId" [selected]="roleName === 'companyAdmin' && company.companyId === selectedCompanyId">
+                      {{ company.companyName }}
+                  </option>
+              </select>
+          </div>
       </div>
-  
+
       <!-- Form Sections -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-        
-        <!-- Contact Information Section -->
-        <div class="bg-white p-6 rounded-lg shadow-md">
-          <h2 class="text-lg font-semibold mb-4 text-gray-800">Contact Information</h2>
-          <div class="space-y-4">
-            <div>
-              <label class="block font-medium text-gray-600">First Name</label>
-              <input formControlName="firstName" type="text" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter first name"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">Last Name</label>
-              <input formControlName="lastName" type="text" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter last name"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">Email <span class="text-red-500">*</span></label>
-              <input formControlName="email" type="email" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter email address"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">Mobile Phone</label>
-              <input formControlName="mobilePhone" type="text" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter mobile phone"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">Address</label>
-              <input formControlName="address" type="text" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter address"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">City</label>
-              <input formControlName="city" type="text" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter city"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">State</label>
-              <select formControlName="state" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 py-1">
-                <option value="">Select State</option>
-                <option value="AL">Alabama</option>
-                <option value="AK">Alaska</option>
-                <option value="AZ">Arizona</option>
-                <option value="AR">Arkansas</option>
-                <option value="CA">California</option>
-                <option value="CO">Colorado</option>
-              </select>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">Zip Code</label>
-              <input formControlName="zipCode" type="text" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter zip code"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">SSN Number</label>
-              <input formControlName="ssNumber" type="text" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter SSN number"/>
-            </div>
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          
+          <!-- Contact Information Section -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+              <h2 class="text-lg font-semibold mb-4 text-gray-800">Contact Information</h2>
+              <div class="space-y-4">
+                  <div>
+                      <label class="block font-medium text-gray-600">First Name</label>
+                      <input formControlName="firstName" type="text" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter first name"/>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">Last Name</label>
+                      <input formControlName="lastName" type="text" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter last name"/>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">Email <span class="text-red-500">*</span></label>
+                      <input formControlName="email" type="email" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter email address"/>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">Mobile Phone</label>
+                      <input formControlName="mobilePhone" type="text" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter mobile phone"/>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">Address</label>
+                      <input formControlName="address" type="text" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter address"/>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">City</label>
+                      <input formControlName="city" type="text" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter city"/>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">State</label>
+                      <select formControlName="state" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 py-1">
+                          <option value="">Select State</option>
+                          <option value="AL">Alabama</option>
+                          <option value="AK">Alaska</option>
+                          <option value="AZ">Arizona</option>
+                          <option value="AR">Arkansas</option>
+                          <option value="CA">California</option>
+                          <option value="CO">Colorado</option>
+                      </select>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">Zip Code</label>
+                      <input formControlName="zipCode" type="text" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter zip code"/>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">SSN Number</label>
+                      <input formControlName="ssNumber" type="text" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter SSN number"/>
+                  </div>
+              </div>
           </div>
-        </div>
-  
-        <!-- Employment Section -->
-        <div class="bg-white p-6 rounded-lg shadow-md">
-          <h2 class="text-lg font-semibold mb-4 text-gray-800">Employment</h2>
-          <div class="space-y-4">
-            <div>
-              <label class="block font-medium text-gray-600">Employment Type</label>
-              <select formControlName="employmentType" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none bg-white py-2 text-gray-800">
-                <option *ngFor="let type of employmentTypes" [value]="type">{{ type }}</option>
-              </select>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">Occupation</label>
-              <input formControlName="occupation" type="text" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter occupation"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">Pay Frequency</label>
-              <select formControlName="payFrequency" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none bg-white py-2 text-gray-800">
-                <option *ngFor="let frequency of payFrequencies" [value]="frequency">{{ frequency }}</option>
-              </select>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">Yearly Salary</label>
-              <input formControlName="yearlySalary" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter yearly salary"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">Regular Rate</label>
-              <input formControlName="regularRate" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter regular rate"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">OT Rate</label>
-              <input formControlName="otRate" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter OT rate"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">Sick Rate</label>
-              <input formControlName="sickRate" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter sick rate"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">Vacation Rate</label>
-              <input formControlName="vacationRate" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter vacation rate"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">Hire Date</label>
-              <input formControlName="hireDate" type="date" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 py-1"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">Birth Date</label>
-              <input formControlName="birthDate" type="date" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 py-1"/>
-            </div>
+
+          <!-- Employment Section -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+              <h2 class="text-lg font-semibold mb-4 text-gray-800">Employment</h2>
+              <div class="space-y-4">
+                  <div>
+                      <label class="block font-medium text-gray-600">Employment Type</label>
+                      <select formControlName="employmentType" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none bg-white py-2 text-gray-800">
+                          <option *ngFor="let type of employmentTypes" [value]="type">{{ type }}</option>
+                      </select>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">Occupation</label>
+                      <input formControlName="occupation" type="text" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter occupation"/>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">Pay Frequency</label>
+                      <select formControlName="payFrequency" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none bg-white py-2 text-gray-800">
+                          <option *ngFor="let frequency of payFrequencies" [value]="frequency">{{ frequency }}</option>
+                      </select>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">Yearly Salary</label>
+                      <input formControlName="yearlySalary" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter yearly salary"/>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">Regular Rate</label>
+                      <input formControlName="regularRate" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter regular rate"/>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">OT Rate</label>
+                      <input formControlName="otRate" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter OT rate"/>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">Sick Rate</label>
+                      <input formControlName="sickRate" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter sick rate"/>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">Vacation Rate</label>
+                      <input formControlName="vacationRate" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter vacation rate"/>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">Hire Date</label>
+                      <input formControlName="hireDate" type="date" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 py-1"/>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">Birth Date</label>
+                      <input formControlName="birthDate" type="date" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 py-1"/>
+                  </div>
+              </div>
           </div>
-        </div>
-  
-        <!-- Taxes Section -->
-        <div class="bg-white p-6 rounded-lg shadow-md">
-          <h2 class="text-lg font-semibold mb-4 text-gray-800">Taxes</h2>
-          <div class="space-y-4">
-            <div>
-              <label class="block font-medium text-gray-600">
-                <input formControlName="w4Part2MultipleJobs" type="checkbox" class="mr-2">W4 Part2 (multiple jobs)
-              </label>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">Filing Status Fed</label>
-              <input formControlName="filingStatusFed" type="text" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter federal filing status"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">Filing Status State</label>
-              <input formControlName="filingStatusState" type="text" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter state filing status"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">Claim Dependent</label>
-              <input formControlName="claimDependent" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter claim dependent"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">Other Income</label>
-              <input formControlName="otherIncome" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter other income"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">Deductions</label>
-              <input formControlName="deductions" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter deductions"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">Extra Withholdings</label>
-              <input formControlName="extraWithholdings" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter extra withholdings"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">Social Security Rate</label>
-              <input formControlName="socialSecurityRate" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter social security rate"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">Medicare Rate</label>
-              <input formControlName="medicareRate" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter medicare rate"/>
-            </div>
+
+          <!-- Taxes Section -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+              <h2 class="text-lg font-semibold mb-4 text-gray-800">Taxes</h2>
+              <div class="space-y-4">
+                  <div>
+                      <label class="block font-medium text-gray-600">
+                          <input formControlName="w4Part2MultipleJobs" type="checkbox" class="mr-2">W4 Part2 (multiple jobs)
+                      </label>
+                  </div>
+                  <div>
+                    <label class="block font-medium text-gray-600">Filing Status Fed</label>
+                    <select formControlName="filingStatusFed" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800">
+                      <option *ngFor="let status of filingStatuses" [value]="status">{{ status }}</option>
+                    </select>
+                  </div>
+                  
+                  <!-- Filing Status State Dropdown -->
+                  <div>
+                    <label class="block font-medium text-gray-600">Filing Status State</label>
+                    <select formControlName="filingStatusState" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800">
+                      <option *ngFor="let status of filingStatuses" [value]="status">{{ status }}</option>
+                    </select>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">Claim Dependent</label>
+                      <input formControlName="claimDependent" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter claim dependent"/>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">Other Income</label>
+                      <input formControlName="otherIncome" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter other income"/>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">Deductions</label>
+                      <input formControlName="deductions" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter deductions"/>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">Extra Withholdings</label>
+                      <input formControlName="extraWithholdings" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter extra withholdings"/>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">Social Security Rate</label>
+                      <input formControlName="socialSecurityRate" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter social security rate"/>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">Medicare Rate</label>
+                      <input formControlName="medicareRate" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter medicare rate"/>
+                  </div>
+              </div>
           </div>
-        </div>
-  
-        <!-- Other Section -->
-        <div class="bg-white p-6 rounded-lg shadow-md">
-          <h2 class="text-lg font-semibold mb-4 text-gray-800">Other</h2>
-          <div class="space-y-4">
-            <div>
-              <label class="block font-medium text-gray-600">
-                <input formControlName="active" type="checkbox" class="mr-2">Active
-              </label>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">401K</label>
-              <input formControlName="k401" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter 401K"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">SDI</label>
-              <input formControlName="sdi" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter SDI"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">Health Insurance</label>
-              <input formControlName="healthInsurance" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter health insurance"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">EIC</label>
-              <input formControlName="eic" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter EIC"/>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">Gender</label>
-              <select formControlName="gender" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 py-1">
-                <option value="">Select Gender</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Other">Other</option>
-              </select>
-            </div>
-            <div>
-              <label class="block font-medium text-gray-600">Grade</label>
-              <input formControlName="grade" type="text" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter grade"/>
-            </div>
+
+          <!-- Other Section -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+              <h2 class="text-lg font-semibold mb-4 text-gray-800">Other</h2>
+              <div class="space-y-4">
+                  <div>
+                      <label class="block font-medium text-gray-600">
+                          <input formControlName="active" type="checkbox" class="mr-2">Active
+                      </label>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">401K</label>
+                      <input formControlName="k401" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter 401K"/>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">SDI</label>
+                      <input formControlName="sdi" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter SDI"/>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">Health Insurance</label>
+                      <input formControlName="healthInsurance" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter health insurance"/>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">EIC</label>
+                      <input formControlName="eic" type="number" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter EIC"/>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">Gender</label>
+                      <select formControlName="gender" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 py-1">
+                          <option value="">Select Gender</option>
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                          <option value="Other">Other</option>
+                      </select>
+                  </div>
+                  <div>
+                      <label class="block font-medium text-gray-600">Grade</label>
+                      <input formControlName="grade" type="text" class="border-b-2 border-blue-400 focus:border-blue-600 w-full focus:outline-none text-gray-800 placeholder-gray-400 py-1" placeholder="Enter grade"/>
+                  </div>
+              </div>
           </div>
-        </div>
-  
       </div>
-    </form>
-    <app-shared-ui 
-    [loading]="isLoading" 
-    [successMessage]="successMessage" 
-    [errorMessage]="errorMessage">
+  </form>
+
+  <app-shared-ui 
+      [loading]="isLoading" 
+      [successMessage]="successMessage" 
+      [errorMessage]="errorMessage">
   </app-shared-ui>
-  </div>
-  
+</div>

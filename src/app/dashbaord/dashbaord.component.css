@@ -1,35 +1,28 @@
-/* Dropdown Menu Styling */
-.dropdown-menu {
-    position: absolute;
-    right: 0;
-    margin-top: 0.5rem;
-    width: 12rem;
-    background-color: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
+.dashboard-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
 
-  .dashboard-card {
-    background-color: white;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .dashboard-card:hover {
-    background-color: #1a73e8; /* Change background to a darker blue on hover */
-    transform: scale(1.05); /* Slightly enlarge the card */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
-  }
-  
-  .group:hover .group-hover\\:text-white {
-    color: white;
-  }
-  
+.dashboard-card:hover {
+  /* Remove the background color change on hover */
+  /* background-color: #1a73e8; */
+
+  /* Optionally, keep the scale and shadow effect */
+  transform: scale(1.05);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+
+  /* Ensure text color remains visible on hover */
+  color: inherit;  /* Keeps text color the same */
+}
+
+.group:hover .group-hover\\:text-white {
+  /* Ensure the text color remains the same */
+  color: inherit;
+}

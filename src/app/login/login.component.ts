@@ -1,8 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
 import { SharedUiComponent } from '../shared-ui/shared-ui.component';
 import { MessageService } from 'primeng/api';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -10,27 +11,43 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./login.component.css'],
   providers: [MessageService]
 })
-export class LoginComponent {
-  username: string = '';
-  password: string = '';
-
+export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
   isLoading: boolean = false;
   successMessage: { summary: string, detail: string } | null = null;
   errorMessage: { summary: string, detail: string } | null = null;
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private loginService: LoginService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.loginForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+    });
+  }
 
   onSubmit(): void {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched(); 
+      return;
+    }
+
     this.isLoading = true;
     this.successMessage = null;
     this.errorMessage = null;
-  
-    this.loginService.login(this.username, this.password).subscribe(
-      response => {
+
+    const { username, password } = this.loginForm.value;
+
+    this.loginService.login(username, password).subscribe(
+      (response) => {
         this.isLoading = false;
         console.log('Login successful', response);
         this.loginService.saveToken(response.jwt, response.refreshToken);
-  
+
         const userInfo: any = {
           userId: response.result.userId,
           userName: response.result.userName,
@@ -41,29 +58,32 @@ export class LoginComponent {
           roleName: response.result.roleName,
           companyName: response.result.companyName,
         };
-  
+
         if (response.result.roleName === 'superAdmin') {
-          userInfo.superAdminCompanyId = response.result.companyId; 
+          userInfo.superAdminCompanyId = response.result.companyId;
         } else {
-          userInfo.companyId = response.result.companyId; 
+          userInfo.companyId = response.result.companyId;
         }
-  
+
         localStorage.setItem('userInfo', JSON.stringify(userInfo));
-  
-        // Show success message
-        this.successMessage = { summary: 'Login Successful', detail: 'Welcome ' + response.result.firstName + '!', };
-  
-        // Delay navigation to allow the success message to be displayed
+
+        this.successMessage = {
+          summary: 'Login Successful',
+          detail: 'Welcome ' + response.result.firstName + '!',
+        };
+
         setTimeout(() => {
           this.router.navigate(['/dashboard']);
-        }, 3000);  // 3-second delay to match the toast message duration
+        }, 3000);
       },
-      error => {
+      (error) => {
         this.isLoading = false;
         console.error('Login failed', error);
-        this.errorMessage = { summary: 'Login Failed', detail: 'Please check your credentials and try again.', };
+        this.errorMessage = {
+          summary: 'Login Failed',
+          detail: 'Please check your credentials and try again.',
+        };
       }
     );
   }
-  
 }

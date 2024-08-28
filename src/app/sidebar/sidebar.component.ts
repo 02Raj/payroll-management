@@ -102,5 +102,12 @@ export class SidebarComponent {
   toggleUsersDropdown(): void {
     this.dropdownVisibleUsers = !this.dropdownVisibleUsers;
   }
+
+  toggleSidebar(): void {
+    this.sidebarVisible = !this.sidebarVisible;
+    console.log('Sidebar toggled:', this.sidebarVisible);
+  }
+  
+  
 }
 

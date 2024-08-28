@@ -19,7 +19,7 @@ export class SharedUiComponent {
         severity: 'success',
         summary: this.successMessage.summary,
         detail: this.successMessage.detail,
-        life: 3000 // Display the toast for 3 seconds
+        life: 2000 
       });
       this.clearMessages();
     }
@@ -28,7 +28,7 @@ export class SharedUiComponent {
         severity: 'error',
         summary: this.errorMessage.summary,
         detail: this.errorMessage.detail,
-        life: 3000 // Display the toast for 3 seconds
+        life: 2000 
       });
       this.clearMessages();
     }

@@ -10,19 +10,17 @@ import { BehaviorSubject } from 'rxjs';
 export class DashbaordComponent {
   sidebarVisible: boolean | undefined;
   isDropdownOpen = false;
-
-
-
-
+  roleName: string | null = null;
 
   constructor(private sideNavService: SidenavService) {
    
+    const userInfo = localStorage.getItem('userInfo');
+    
+    if (userInfo) {
+      const user = JSON.parse(userInfo);
+      this.roleName = user.roleName;
+    }
   }
-
-  // toggleSidebar() {
-  //   this.sideNavService.toggle();
-  // }
-
 
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
@@ -31,4 +29,5 @@ export class DashbaordComponent {
   closeDropdown() {
     this.isDropdownOpen = false;
   }
+
 }

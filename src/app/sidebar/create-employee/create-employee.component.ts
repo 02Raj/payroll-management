@@ -6,6 +6,7 @@ import { EmployeeService } from 'src/app/services/employee.service';
 import { SharedUiComponent } from 'src/app/shared-ui/shared-ui.component';
 
 import { EmploymentType } from 'src/enum/employment-type.enum';
+import { FilingStatus } from 'src/enum/FilingStatus.enum';
 import { PayFrequency } from 'src/enum/pay-frequency.enum';
 
 @Component({
@@ -18,6 +19,7 @@ export class CreateEmployeeComponent {
   companies: any[] = [];
   employmentTypes = Object.values(EmploymentType);
   payFrequencies = Object.values(PayFrequency);
+  filingStatuses = Object.values(FilingStatus); 
   employeeId: string | null = null;
   roleName: any;
   selectedCompanyId: any;
@@ -97,7 +99,7 @@ export class CreateEmployeeComponent {
   }
 
   fetchCompanies(companyIdToSelect?: string): void {
-    this.companyService.getAllCompanies(0, 10).subscribe(
+    this.companyService.getAllCompanies(0, 50).subscribe(
       (response: { results: any[] }) => {
         if (companyIdToSelect) {
           const selectedCompany = response.results.find(company => company.companyId === companyIdToSelect);
@@ -156,10 +158,10 @@ export class CreateEmployeeComponent {
         this.successMessage = { summary: '', detail: 'Employee created successfully.' };
         console.log('Employee created successfully:', response);
         
-        // Navigate to the company page after a short delay
+       
         setTimeout(() => {
-          this.router.navigate(['/employee']);  // Replace '/companies' with your desired route
-        }, 2000); // Delay of 2 seconds before navigation
+          this.router.navigate(['/employee']);  
+        }, 2000);
       },
       error => {
         this.isLoading = false;
@@ -171,20 +173,20 @@ export class CreateEmployeeComponent {
 
   updateEmployee(): void {
     if (this.employeeId) {
-      this.isLoading = true;  // Show loading indicator
+      this.isLoading = true; 
       this.employeeService.updateEmployee(this.employeeId, this.employeeForm.value).subscribe(
         response => {
-          this.isLoading = false;  // Hide loading indicator
+          this.isLoading = false;  
           this.successMessage = { summary: '', detail: 'Employee updated successfully.' };
           console.log('Employee updated successfully:', response);
   
-          // Navigate to the company page after a short delay
+         
           setTimeout(() => {
-            this.router.navigate(['/employee']);  // Replace '/companies' with your desired route
-          }, 2000); // Delay of 2 seconds before navigation
+            this.router.navigate(['/employee']);  
+          }, 2000); 
         },
         error => {
-          this.isLoading = false;  // Hide loading indicator
+          this.isLoading = false;  
           this.errorMessage = { summary: 'Error', detail: 'Failed to update employee.' };
           console.error('Error updating employee:', error);
         }

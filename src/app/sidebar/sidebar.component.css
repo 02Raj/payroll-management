@@ -1,33 +1,56 @@
-.sidebar-menu {
-    list-style-type: none;
-    padding: 0;
-}
-
-.sidebar-menu li {
-    margin: 10px 0;
-}
-
-.sidebar-menu a {
-    text-decoration: none;
-    color: #333;
-    font-size: 16px;
-    font-weight: 500;
-}
-
-.sidebar-menu a:hover {
-    color: #007bff;
-}
-
+/* Improved User Menu Hover Effect */
 #user-menu {
-    transition: background-color 0.2s ease-in-out;
-  }
-  
-  #user-menu:hover {
-    background-color: #1f2937;
-  }
-  
-  #dropdown-user ul li:hover a {
-    background-color: #374151;
-    color: #ffffff; 
-  }
-  
+  transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+#user-menu:hover {
+  background-color: #e5e7eb; /* Light gray background */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Dropdown items hover effect */
+#dropdown-user ul li:hover a {
+  background-color: #f3f4f6; /* Slightly lighter gray */
+  color: #1f2937; /* Darker text color */
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+#dropdown-user ul li a {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+/* Icon and text color adjustment */
+#dropdown-user ul li a svg {
+  color: #4b5563; /* Default icon color */
+  transition: color 0.2s ease-in-out;
+}
+
+#dropdown-user ul li:hover a svg {
+  color: #2563eb; /* Blue color for icon on hover */
+}
+
+#dropdown-user ul li:hover a.text-red-600 svg {
+  color: #dc2626;
+}
+
+
+#dropdown-user .bg-gray-200:hover {
+  background-color: #e2e8f0; 
+  transition: background-color 0.2s ease-in-out;
+}
+
+
+
+/* .translate-x-full {
+  transform: translateX(-100%);
+}
+
+.translate-x-0 {
+  transform: translateX(0);
+} */
+
+
